@@ -1,0 +1,42 @@
+### 解题思路
+
+    解释2,6,1,4这样的情况
+    简单来说:是如下的情况(实际会比较的多一点,但是不影响总体)
+    首先,minPrice = 2 / profit = 6-2 = 4
+    然后找到一个更小的minPrice = 1  之后计算出来的profit = 4-1 = 3
+
+    最后比较两个profit,谁更大就取谁!  这才是关键,谁更大就取谁!
+
+    等于将股价分为多段---> 
+    条件:要求每段都是升序,并且后面的价格段中minPrice比前面的minPrice更小,后面的价格段以minPrice开头
+
+    例如3,100,2,99,1,90 --> 这样算法就将这段数字分为三段,[3,100] [2,99] [1,90],
+    然后分别计算他们的profit,最后比较它们的大小,取最大的profit,返回
+
+    换个例子,如果是这样的情况:[7,2,10,3,1,40]
+    那么就分为[7,2,10,3] [1,40]
+    第一段是最佳profit是8, 第二段的最佳profit是39,最后比较它们,取更大值39
+
+    这即为动态规划的思路,求解多段问题,记录前面的最优解,然后与现在的最优解进行比较交换,最后剩下的就是最优解答案
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int profit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minPrice){
+                minPrice = prices[i];
+            }else if (profit < prices[i] - minPrice){
+                profit = prices[i] - minPrice;
+            }
+        }
+        return profit;
+    }
+}
+```
+

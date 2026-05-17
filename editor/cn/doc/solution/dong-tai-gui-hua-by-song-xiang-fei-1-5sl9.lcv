@@ -1,0 +1,33 @@
+* 
+
+```
+"""
+本题思路：
+    首先 dp[i] 里存的应该是，截止到目前为止，能获得的最大利润，即假设刚开始 n 就是等于2，然后3、4...
+    和分而治之差不多，只是只往一边分
+    找个 minprice 用来存截止到目前为止最小的购入价
+    dp[i] 里存的 prices[i]-minprice 或者前一个 dp[i-1]的值，因为截止到 i-1 , 最大获益为 dp[i-1],因为prices[i]的加入可能是的获利变大，即prices[i]-minprice ， 所以其两者最大作为截止到 i 最大获利
+小总结：
+    动态规划dp[i]里存的使截止到 i 的位置的最优解，而不是对应 i 位置的某个对应数， 想着最后 再来查一遍 ，这不是动态规划
+"""
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp = [0]
+        i = 1
+        minprice = prices[0]
+        
+        while i < n:
+            income = max(prices[i] - minprice, dp[i - 1])
+            dp.append(income)
+            if minprice > prices[i]:
+                minprice = prices[i]
+            i += 1
+
+        return dp[-1]
+"""
+执行用时：312 ms, 在所有 Python3 提交中击败了37.68%的用户
+内存消耗：22.9 MB, 在所有 Python3 提交中击败了93.95%的用户
+"""
+```
+

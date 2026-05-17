@@ -1,0 +1,103 @@
+## 题目分析
+
+* `最大利润`即数组中任意两个数字的`最大差值`，且大的数字必须在小的数字之后
+* 公式：`i、j`为日期且`i < j`，则最大利润为寻找`max(prices[j] - prices[i])`
+
+## 暴力解法
+
+**循环两次的暴力解法在此处会超时，本解法只做学习或可直接跳过**
+
+* python
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+
+        # 暴力解法
+        max_profit = 0
+        n = len(prices)
+        for i in range(n):
+            for j in range(i + 1, n):
+                max_profit = max(max_profit, prices[j] - prices[i])
+        return max_profit
+```
+
+### 复杂度分析
+
+* 时间复杂度：`O(n^2)`，需遍历两次，循环计算`n*(n-1)/2`次
+* 空间复杂度：`O(1)`
+
+## 一次遍历解法
+
+* python
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+
+        # 一次遍历解法
+        max_profit = 0
+        min_price = 10**4 + 1
+        for p in prices:
+            max_profit = max(max_profit, p - min_price)
+            min_price = min(min_price, p)
+        return max_profit
+```
+
+### 复杂度分析
+
+* 时间复杂度：`O(n)`，只需遍历一次，其中`n`是数组长度
+* 空间复杂度：`O(1)`
+
+## 动态规划解法
+
+* python
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+
+        # 动态规划解法
+        max_profit = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i - 1]:
+                max_profit = max(max_profit, prices[i] - prices[i - 1])
+                prices[i] = prices[i - 1]
+        return max_profit
+```
+
+### 复杂度分析
+
+* 时间复杂度：`O(n)`，其中`n`是数组长度，prices值会变化
+* 空间复杂度：`O(1)`
+
+## 扩展
+
+重复题：
+* [剑指 Offer 63. 股票的最大利润](https://leetcode.cn/problems/gu-piao-de-zui-da-li-run-lcof/)
+
+相关类型题：
+* [121. 三种方法轻松解决 | 买卖股票的最佳时机算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/solution/li-san-shi-yi-san-chong-fang-fa-qing-son-263f/)
+* [122. 三种方法轻松解决 | 买卖股票的最佳时机 II 算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/solution/li-san-shi-yi-san-chong-fang-fa-qing-son-xdfa/)
+* [123. 四种方法轻松解决 | 买卖股票的最佳时机 III 算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/solution/li-san-shi-yi-si-chong-fang-fa-qing-song-y4jt/)
+* [188. 三种方法轻松解决 | 买卖股票的最佳时机 IV 算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/solution/li-san-shi-yi-si-chong-fang-fa-qing-song-ty1d/)
+* [309. 四种方法轻松解决 | 最佳买卖股票时机含冷冻期算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/solution/li-san-shi-yi-si-chong-fang-fa-qing-song-utgn/)
+* [714. 五种方法轻松解决 | 买卖股票的最佳时机含手续费算法](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/solution/li-san-shi-yi-wu-chong-fang-fa-qing-song-qr5s/)
+
+## 最后最后
+
+❤️❤️❤️读者每一份热爱都是笔者前进的动力！
+如果对您有帮忙，首先感谢各位朋友：点赞、收藏和评论。
+也欢迎大家关注我的小站[《李三十一》](http://lisanshiyi.com/assets/image/ThirtyOneLee.jpeg)，定期分享源码和算法总结。
