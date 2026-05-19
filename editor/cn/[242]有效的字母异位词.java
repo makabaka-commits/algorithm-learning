@@ -34,23 +34,20 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isAnagram(String s, String t) {
-        public boolean isAnagram(String s, String t) {
-
-            if (s.length() != t.length()) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] table = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            table[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            table[t.charAt(i) - 'a']--;
+            if (table[t.charAt(i) - 'a'] < 0) {
                 return false;
             }
-            int[] table = new int[26];
-            for (int i = 0; i < s.length(); i++) {
-                table[s.charAt(i) - 'a']++;
-            }
-            for (int i = 0; i < t.length(); i++) {
-                table[t.charAt(i) - 'a']--;
-                if (table[t.charAt(i) - 'a'] < 0) {
-                    return false;
-                }
-            }
-            return true;
-
         }
+        return true;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
