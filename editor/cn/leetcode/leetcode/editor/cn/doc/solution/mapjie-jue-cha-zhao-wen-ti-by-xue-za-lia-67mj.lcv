@@ -1,0 +1,31 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* golang
+
+```golang
+func isAnagram(s string, t string) bool {
+    if len(s) != len(t){
+        return false
+    }
+
+    hash := make(map[byte]int, 26)
+
+    for i:=0;i<len(s);i++{
+        hash[s[i]-'a']++
+        hash[t[i]-'a']--
+    }
+
+    for _,v := range hash{
+        if v != 0{
+            return false
+        }
+    }
+
+    return true
+}
+```
+

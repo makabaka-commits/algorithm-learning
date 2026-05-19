@@ -1,0 +1,20 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int t=0;
+        int ans=0;
+        for (int i=1;i< prices.length;i++) {
+            t=t+prices[i]-prices[i-1];
+            if (t<0) {
+                t = 0;
+            }
+            ans=Math.max(ans,t);
+
+
+        }
+
+        return ans;
+    }
+}
+
+//runtime:2 ms
+//memory:92.4 MB
